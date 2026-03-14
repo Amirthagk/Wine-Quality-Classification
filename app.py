@@ -19,7 +19,7 @@ except Exception as e:
     print(f"Watch out: model.joblib not found. {e}")
 
 # Target class names for Wine dataset
-wine_classes = ['Class 0', 'Class 1', 'Class 2']
+wine_classes = ['Class 0 (Cultivar 1)', 'Class 1 (Cultivar 2)', 'Class 2 (Cultivar 3)']
 
 # Define Pydantic schema for REST API requests
 class WineFeatures(BaseModel):
