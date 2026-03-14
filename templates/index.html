@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Quality Classification</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --container-bg: #161b22;
+            --accent-color: #58a6ff;
+            --border-color: #30363d;
+            --input-bg: #0d1117;
+            --btn-bg: #238636;
+            --btn-hover: #2ea043;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        input {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3);
+        }
+
+        .btn-submit {
+            background-color: var(--btn-bg);
+            color: #ffffff;
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--btn-hover);
+        }
+
+        .result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 6px;
+            background-color: rgba(88, 166, 255, 0.1);
+            border: 1px solid var(--accent-color);
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .error {
+            background-color: rgba(248, 81, 73, 0.1);
+            border-color: #f85149;
+            color: #ff7b72;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Quality Identifier for Wine 🍷</h1>
+
+    <form action="/predict_ui" method="post">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="alcohol">Alcohol</label>
+                <input type="number" step="any" id="alcohol" name="alcohol" required value="13.2">
+            </div>
+            <div class="form-group">
+                <label for="malic_acid">Malic Acid</label>
+                <input type="number" step="any" id="malic_acid" name="malic_acid" required value="2.7">
+            </div>
+            <div class="form-group">
+                <label for="ash">Ash</label>
+                <input type="number" step="any" id="ash" name="ash" required value="2.3">
+            </div>
+            <div class="form-group">
+                <label for="alcalinity_of_ash">Alcalinity of Ash</label>
+                <input type="number" step="any" id="alcalinity_of_ash" name="alcalinity_of_ash" required value="19.5">
+            </div>
+            <div class="form-group">
+                <label for="magnesium">Magnesium</label>
+                <input type="number" step="any" id="magnesium" name="magnesium" required value="100">
+            </div>
+            <div class="form-group">
+                <label for="total_phenols">Total Phenols</label>
+                <input type="number" step="any" id="total_phenols" name="total_phenols" required value="2.8">
+            </div>
+            <div class="form-group">
+                <label for="flavanoids">Flavanoids</label>
+                <input type="number" step="any" id="flavanoids" name="flavanoids" required value="3.0">
+            </div>
+            <div class="form-group">
+                <label for="nonflavanoid_phenols">Nonflavanoid Phenols</label>
+                <input type="number" step="any" id="nonflavanoid_phenols" name="nonflavanoid_phenols" required value="0.3">
+            </div>
+            <div class="form-group">
+                <label for="proanthocyanins">Proanthocyanins</label>
+                <input type="number" step="any" id="proanthocyanins" name="proanthocyanins" required value="1.5">
+            </div>
+            <div class="form-group">
+                <label for="color_intensity">Color Intensity</label>
+                <input type="number" step="any" id="color_intensity" name="color_intensity" required value="4.6">
+            </div>
+            <div class="form-group">
+                <label for="hue">Hue</label>
+                <input type="number" step="any" id="hue" name="hue" required value="1.0">
+            </div>
+            <div class="form-group">
+                <label for="od280_od315_of_diluted_wines">OD280/OD315</label>
+                <input type="number" step="any" id="od280_od315_of_diluted_wines" name="od280_od315_of_diluted_wines" required value="3.0">
+            </div>
+            <div class="form-group">
+                <label for="proline">Proline</label>
+                <input type="number" step="any" id="proline" name="proline" required value="750">
+            </div>
+        </div>
+        
+        <button type="submit" class="btn-submit">Predict Wine Class</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result {% if error %}error{% endif %}">
+            {{ prediction }}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
